@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, NavParams, NavController, ViewController } from 'ionic-angular';
+import { NavParams, NavController, ViewController } from 'ionic-angular';
 
 //plugins add
 import { BarcodeScanner, BarcodeScannerOptions, BarcodeScanResult } from '@ionic-native/barcode-scanner';
@@ -35,7 +35,6 @@ export class TabsPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private bcs: BarcodeScanner,
-    private toastCtrl: ToastController,
     private gop: GetOeuvreProvider,
     private fop: FindOeuvreProvider,
     private viewCtrl: ViewController) {

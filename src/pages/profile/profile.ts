@@ -4,8 +4,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 //customs *
 import { DBObject } from "../../providers/data/typings";
-import { FindOeuvreProvider } from "../../providers/find-oeuvre/find-oeuvre";
-import { HomePage } from "../home/home";
 import { TabsPage } from "../tabs/tabs";
 
 /**
@@ -38,7 +36,6 @@ export class ProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private fop: FindOeuvreProvider,
     private appCtrl: App
   ) {
 
