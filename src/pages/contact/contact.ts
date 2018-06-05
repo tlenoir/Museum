@@ -11,4 +11,11 @@ export class ContactPage {
 
   }
 
+  ionViewDidLoad(){
+    console.log("ionViewDidLoad ContactPage")
+  }
+  ionViewWillEnter(){
+    console.log("ionViewWillEnter ContactPage")
+  }
+
 }

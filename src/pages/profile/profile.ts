@@ -1,21 +1,68 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { HomePage } from "../home/home";
+import { Component, Pipe, PipeTransform } from '@angular/core';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { DomSanitizer } from '@angular/platform-browser';
 
+//customs *
+import { DBObject } from "../../providers/data/typings";
+import { FindOeuvreProvider } from "../../providers/find-oeuvre/find-oeuvre";
+import { HomePage } from "../home/home";
+import { TabsPage } from "../tabs/tabs";
+
+/**
+ * Generated class for the ProfilePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) { }
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 @Component({
   selector: 'page-profile',
-  templateUrl: 'profile.html'
+  templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  DATA: DBObject;
+  addOeuvre: boolean = false;
 
-  code;
+  fromScanAcode: number;
+  fromScanAnObject;
+  url: string = "http://tcc.1click.pf/museum/index.php?mat=FVK96BLUEL&oeuvre=";
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private fop: FindOeuvreProvider,
+    private appCtrl: App
+  ) {
+
+    this.fromScanAcode = this.navParams.get('idalCode');
+    this.url = this.url + this.fromScanAcode;
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ProfilePage')
+  }
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ProfilePage');
+
+  //Refresh HomePage et PrimaryTabsPage
   
 
-  constructor(public navCtrl: NavController, private navParams: NavParams) {
+}
 
-    this.code = this.navParams.get('idl');
+ionViewWillLeave() {
+  this.refreshHome();
+}
 
-    console.log(this.code);
 
+public refreshHome() {
+  this.appCtrl.getRootNavs()[0].setRoot(TabsPage);
 }
 }

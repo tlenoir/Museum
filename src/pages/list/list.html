@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar color="rd">
+    <ion-title>
+      Carte aux trésors
+    </ion-title>
+    <ion-buttons right (click)="showContact()">
+        <button ion-button navPop icon-only>
+                  <ion-icon name="information-circle"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Liste des Oeuvres</h2>
+  <br/>
+
+  <ion-list>
+    <ion-item *ngFor="let xyz of data_bdd">
+            <ion-avatar>
+              <img [src]="xyz.img" />
+            </ion-avatar>
+            {{xyz.name}}{{xyz.lastname}}
+            <ion-icon [name]="xyz.fav ? 'star':'star-outline'" item-right></ion-icon>
+
+
+
+    </ion-item>
+  </ion-list>
+</ion-content>

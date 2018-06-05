@@ -1,42 +1,43 @@
-<ion-header data-ng-init="pushInit()">
-  <ion-navbar>
-    <ion-title>Accueil</ion-title>
+<ion-header>
+  <ion-navbar color="rd">
+    <ion-title>Chasse aux Oeuvres</ion-title>
+    
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <ion-list>
-    <ion-item-sliding *ngFor="let x of oeuvres()">
-      <ion-item>
-        <ion-avatar item-start>
+  <h4 *ngIf="dataToShow && dataToShow.length > 1">Oeuvres trouvées:</h4>
+  <h4 *ngIf="dataToShow && dataToShow.length == 1">Oeuvre trouvée:</h4>
 
-          <img src={{x.img}}>
-        </ion-avatar>
-
-        <!-- name in the array(oeuvres) -->
-
-        {{x.name}}
-      </ion-item>
-
-      <!-- 'if' is a woman or 'if' is a man: then change color -->
-      <ion-item-options side="left" *ngIf="!x.bachacha">
-        <button ion-button color="secondary" (click)="showProfile(x.code)">
-          <ion-icon name="person"></ion-icon>Profile</button>
-
-      </ion-item-options>
-
-      <ion-item-options side="left" *ngIf="x.bachacha">
-        <button ion-button color="danger" (click)="showProfile(x.code)">
-          <ion-icon name="person"></ion-icon>Profile</button>
-
-      </ion-item-options>
+  <ion-grid *ngIf="dataToShow && dataToShow.length; else noOeuvres">
+    <ion-item *ngFor="let xyz of dataToShow" (click)="showProfile(xyz.code)">
+      <img [src]="xyz.img" />
+      <div>
+      <ion-badge color="danger">{{xyz.code}}</ion-badge>
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+    </div>
+    </ion-item>
+    
+  </ion-grid>
 
 
-    </ion-item-sliding>
-  </ion-list>
+  <button ion-button color="danger" icon-start full (click)="rm()" *ngIf="dataToShow && dataToShow.length">
+    <ion-icon name="trash"></ion-icon>Retour vers le passé !</button>
 
-  <div>
+  <ng-template #noOeuvres>
 
-  </div>
+    <div class="p_desole">
+
+      <p>Oups ! Il faut chasser du QrCode !
+
+        <ion-icon class="p_icon" name="flag" item-left></ion-icon>
+      </p>
+    </div>
+
+  </ng-template>
+
+
+
+
+
 </ion-content>
